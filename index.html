@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wait</title>
+  <style>
+    body {
+      background-color: #000b1f;
+      font-family: 'Trebuchet MS', sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center; 
+      align-items: center;    
+    }
+
+    .center {
+      color: white;
+      justify-content: center;
+      align-items: center;
+    }
+    #pwd {
+      font-size: 4em;
+      width: 200px;
+      text-align: center;
+      border-radius: 5px;
+      border: 2px solid #fff;
+      background: none;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="center">
+    <img id="lock" src="img/locked.png"  width="200" />
+    <br><br>
+    <input id="pwd" type="number"  maxlength="3" placeholder="- - -" />
+  </div>
+
+    <script>
+        setInterval(async function () {
+            if(document.getElementById("pwd").value == "123") {
+                document.getElementById("lock").src = "img/granted.png";  
+                await wait(1000);             
+                window.location.href = "wait.html";
+            }
+
+           
+        }, 1000);
+
+        function wait(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+ 
+    </script>
+
+
+</body>
+</html>
