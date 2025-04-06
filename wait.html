@@ -16,13 +16,13 @@
     }
 
     .center {
-      color: white;
+      color: greenyellow;
       display: flex;
       justify-content: center;
       align-items: center;
     }
     #countdown {
-      font-size: 4em;
+      font-size: 3em;
     }
   </style>
 </head>
@@ -31,7 +31,7 @@
   <div class="center" id="countdown"></div>
 
   <script>
-  const targetDate = new Date("April 10, 2025 12:00:00").getTime();
+  const targetDate = new Date("April 05, 2025 23:15:00").getTime();
 
     const interval = setInterval(function () {
     const now = new Date().getTime();
@@ -39,7 +39,7 @@
 
     if (distance < 0) {
       clearInterval(interval);
-      document.getElementById("countdown").innerHTML = "Time's up!";
+      window.location.href = "message.html";
       return;
     }
 
