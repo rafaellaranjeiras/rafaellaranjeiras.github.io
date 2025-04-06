@@ -36,12 +36,12 @@
   <div class="center">
     <img id="lock" src="img/locked.png"  width="200" />
     <br><br>
-    <input id="pwd" type="number"  maxlength="3" placeholder="- - -" />
+    <input id="pwd" type="number"  maxlength="3" placeholder="▲■⬤" />
   </div>
 
     <script>
         setInterval(async function () {
-            if(document.getElementById("pwd").value == "123") {
+            if(document.getElementById("pwd").value == "532") {
                 document.getElementById("lock").src = "img/granted.png";  
                 await wait(1000);             
                 window.location.href = "wait.html";
