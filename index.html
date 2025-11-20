@@ -1,61 +1,161 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Access</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>O Tesouro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Metamorphous&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
   <style>
-    body {
-      background-color: #000b1f;
-      font-family: 'Trebuchet MS', sans-serif;
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center; 
-      align-items: center;    
+    :root{
+      --paper-bg: #c99868;
+      --ink: #1b1b17;
+      --accent: #7b3f2f;
+      --paper-width: min(900px, 92%);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Metamorphous, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
+    body{
+      background: radial-gradient(circle at 10% 10%, #efe7db 0%, #f9f2e6 20%, #efe9de 60%, #e6dbc9 100%);
+      display:flex;align-items:center;justify-content:center;padding:4vh 2vw;
     }
 
-    .center {
-      color: white;
-      justify-content: center;
-      align-items: center;
+    /* Container paper */
+    .paper-wrap{
+      width:var(--paper-width);
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(250,245,238,0.9));
+      border-radius:10px;
+      padding:3.5rem 3rem;
+      box-shadow: 0 20px 40px rgba(22,18,12,0.25), inset 0 1px 0 rgba(255,255,255,0.6);
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(120,80,60,0.12);
     }
-    #pwd {
-      font-size: 4em;
-      width: 200px;
-      text-align: center;
-      border-radius: 5px;
-      border: 2px solid #fff;
-      background: none;
-      color: white;
+
+    /* torn edges using pseudo elements */
+    .paper-wrap::before,
+    .paper-wrap::after{
+      content:"";
+      position:absolute;left:0;right:0;height:40px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent);
+      pointer-events:none;
     }
+    .paper-wrap::before{top:0;transform:skewY(-2deg)}
+    .paper-wrap::after{bottom:0;transform:skewY(2deg)}
+
+    header{
+      display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem
+    }
+    .seal{
+      width:100px;height:100px;display:flex;align-items:center;justify-content:center;color:var(--accent);font-family:'Metamorphous', serif;font-size:70px;
+    }
+    h1{margin:0;font-family:'Metamorphous', serif;font-size:32px;color:var(--ink);letter-spacing:0.6px}
+    .meta{color:rgba(20,20,16,0.55);font-size:0.95rem}
+
+    main{
+      margin-top:1rem;
+      font-family:'Metamorphous', serif;
+      color:var(--ink);
+      line-height:1.7;
+      font-size:18px;
+      max-width:68ch;
+    }
+
+    /* typewriter area */
+    .typewrap{white-space:pre-wrap;word-wrap:break-word;min-height:140px}
+    .cursor{display:inline-block;width:2px;height:1.1em;background:var(--ink);margin-left:4px;vertical-align:bottom;animation:blink 800ms steps(1) infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    /* decorative flourish */
+    .flourish{display:block;margin:2.4rem auto 0;max-width:240px;opacity:0.9}
+
+    /* responsive adjustments */
+    @media (max-width:600px){
+      .paper-wrap{padding:2rem}
+      h1{font-size:22px}
+      main{font-size:16px}
+      .seal{width:80px;height:80px;font-size:40px}
+    }
+
+    /* subtle paper texture */
+    .paper-wrap::after{background-image:radial-gradient(circle at 80% 20%, rgba(0,0,0,0.02) 0%, transparent 35%)}
+    
+
+    /* small footer */
+    footer{display:flex;justify-content:space-between;align-items:center;margin-top:1.8rem;font-size:0.85rem;color:rgba(20,20,16,0.6)}
+    .hint{font-weight:600;color:var(--accent)}
   </style>
 </head>
 <body>
+  <div class="paper-wrap" role="main">
+    <div class="ink-stain" aria-hidden="true"></div>
+    <header>
+      <div class="seal">φρ</div>
+      <div>
+        <h1>Procurani o tesouro</h1>
+        <div class="meta">Só a pessoa certa o encontrará</div>
+      </div>
+    </header>
 
-  <div class="center">
-    <img id="lock" src="img/locked.png"  width="200" />
-    <br><br>
-    <input id="pwd" type="number"  maxlength="3" placeholder="▲■⬤" />
+    <main>
+      <div id="type" class="typewrap" aria-live="polite"></div><span class="cursor" id="cursor"></span>
+
+      <img id="pistaimg" style="max-width: 100%; display: none;" src="img/pista.png">
+
+      <svg class="flourish" viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+        <path d="M2 22 C40 2, 80 42, 120 22 S190 2, 198 20" fill="none" stroke="#7b3f2f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+
+      <footer>
+        <div>-- &nbsp; <span class="hint">Boa sorte</span> &nbsp; --</div>        
+      </footer>
+    </main>
   </div>
 
-    <script>
-        setInterval(async function () {
-            if(document.getElementById("pwd").value == "532") {
-                document.getElementById("lock").src = "img/granted.png";  
-                await wait(1000);             
-                window.location.href = "wait.html";
-            }
+  <script>
+    // Typing effect - configurable
+    const text = `Uma antiga lenda conta a história de um tesouro importantíssimo perdido há centenas de anos. Agora uma pista parece ter sido descoberta, e você é a única pessoa com as ferramentas e habilidades corretas para tentar encontrá-lo e finalmente descobrir se a lenda é real.\n\nA pista descoberta está logo abaixo. Tomara que ela seja útil na sua jornada por essa descoberta que pode mudar a história da humanidade para sempre.`;
 
-           
-        }, 1000);
+    const typingSpeed = 30; // ms per character
+    const pauseBetweenParagraphs = 400; // ms
 
-        function wait(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
+    const el = document.getElementById('type');
+    const cursor = document.getElementById('cursor');
+
+    function sleep(ms){return new Promise(r=>setTimeout(r, ms));}
+
+    async function typeText(s){
+      cursor.style.opacity = '0';
+      el.textContent = '';
+      for(let i=0;i<s.length;i++){
+        const ch = s[i];
+        el.textContent += ch;
+        // small pause on punctuation for a natural feel
+        if((ch === '.' || ch === ',' || ch === ';') ){
+          await sleep(typingSpeed * 8);
+        } else if (ch === '\n'){
+          await sleep(pauseBetweenParagraphs);
+        } else {
+          await sleep(typingSpeed);
         }
- 
-    </script>
+      }
+      // stop cursor blink after typing
+      cursor.style.opacity = '0';
+      document.getElementById("pistaimg").style.display = "flex";
+    }
 
+    // start typing when page is visible
+    document.addEventListener('DOMContentLoaded', ()=>{
+      typeText(text);
+    });
 
+    // accessibility: reveal all text if user prefers reduced motion
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if(mq.matches){
+      el.textContent = text;
+      cursor.style.display = 'none';
+    }
+  </script>
 </body>
 </html>
